@@ -48,6 +48,12 @@ class Admins::ServiceSurveysController < ApplicationController
     end
   end
 
+  def destroy
+    @service_survey = ServiceSurvey.find(params[:id])
+    @service_survey.destroy
+    redirect_to admins_service_surveys_path, notice: t('flash.service_survey.deleted')
+  end
+
   private
 
   def service_survey_record

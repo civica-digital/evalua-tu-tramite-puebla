@@ -41,6 +41,12 @@
                 <% end %>
               <% end %>
             </td>
+            <td>
+              <%= link_to admins_service_survey_path(survey.id), class: "btn btn-danger", "data-confirm" => t(".confirm_delete_service_survey_message"), method: :delete do %>
+                <span class="glyphicon glyphicon-trash"></span>
+                <span class="sr-only"><%= t(".delete_service_survey") %></span>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>

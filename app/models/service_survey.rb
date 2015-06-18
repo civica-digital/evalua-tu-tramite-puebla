@@ -1,7 +1,7 @@
 class ServiceSurvey < ActiveRecord::Base
   has_and_belongs_to_many :services, join_table: :services_service_surveys
   belongs_to :admin
-  has_many :questions
+  has_many :questions, dependent: :destroy
   has_many :answers, class: SurveyAnswer, through: :questions, source: :survey_answers
 
   validates_presence_of :phase

@@ -367,6 +367,8 @@ es:
         preview: "Vista preliminar"
         open: "Abrir encuesta"
         close: "Cerrar encuesta"
+        delete_service_survey: "Eliminar"
+        confirm_delete_service_survey_message: "¿Estás seguro de eliminar la encuesta?"
       new:
         new_service_survey: "Nueva encuesta de servicio"
         add_question: "Agregar pregunta"
@@ -617,6 +619,7 @@ es:
     service_survey:
       created: "La encuesta se ha creado exitosamente."
       updated: "La encuesta se ha actualizado exitosamente."
+      deleted: "La encuesta se ha eliminado exitosamente."
   navbar:
     admin:
       design: "Diseño"
