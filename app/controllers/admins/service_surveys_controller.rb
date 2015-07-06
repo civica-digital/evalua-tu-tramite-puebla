@@ -1,6 +1,7 @@
 class Admins::ServiceSurveysController < ApplicationController
   layout 'admins'
   helper_method :phase_options, :criterion_options, :answer_type_options, :services_for
+  before_action :set_title
 
   def index
     @service_surveys = Admins.surveys_for(current_admin)
@@ -50,6 +51,9 @@ class Admins::ServiceSurveysController < ApplicationController
   end
 
   private
+  def set_title
+    @title_page = I18n.t('admins.service_surveys.index.service_surveys')
+  end
 
   def service_survey_record
     ServiceSurveys.generate_hash_for_record(service_survey_params.symbolize_keys)
