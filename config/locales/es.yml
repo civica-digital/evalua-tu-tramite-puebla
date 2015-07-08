@@ -462,9 +462,11 @@ es:
   service_requests:
     new:
       header: "Crear nueva queja o sugerencia"
+      rules: "* obligatorios"
     form:
       anonymise: "Ocultar identidad"
       prompt_service: 'Tipo de trámite'
+      prompt_who: 'No recuerdo'
       address_placeholder: 'Ej. Av Revolucion 2342, 64830 Monterrey, Nuevo León, México'
       description_placeholder: 'Por favor proporcione detalles particulares sobre la queja o sugerencia y la ubicación para facilitar su atención.'
       map_help: 'Este marcador es aproximado. En caso de estar fuera de lugar ubícalo manualmente.'
@@ -541,6 +543,10 @@ es:
     sign_up: "Registrarme"
     sign_in: "Iniciar sesión"
     service_surveys: "Evalúa un servicio"
+    home: "Inicio"
+    requests: "Quejas y sujerencias"
+    evaluate_a_submission: "Evalúa trámite" 
+
 
   # Global words. Commonly used thru the platform
   search: 'Buscar'
@@ -560,8 +566,8 @@ es:
       email: "Correo electrónico"
       title: "Título"
       address: "Dirección"
-      description: "Descripción"
-      service: "Trámites"
+      description: "Descripción*"
+      service: "Trámites*"
       status: "Estatus"
       message: "Mensaje"
       password: "Contraseña"
@@ -572,7 +578,7 @@ es:
       administrative_unit: "Unidad administrativa"
       charge: "Cargo"
       service_type: "Tipo de servicio"
-      cis: "Centros de atención"
+      cis: "Centros de atención*"
       admin_id: "Administrador de servicio"
       services: "Trámites"
       phase: "Etapa de la encuesta"
@@ -580,12 +586,15 @@ es:
       text: "Texto"
       answer_type: "Tipo de respuesta"
       value: "Valor %"
+      who: "¿Quién te atendió?*" 
+      description_public_servant: "Describe al funcionario"
     placeholders:
       email: "correo@correo.com"
       password: "contraseña"
       current_password: "contraseña actual"
       new_password: "Nueva contraseña"
       confirm_password: "Confirmar nueva contraseña"
+      description_public_servant_placeholder: "Escribe una descripción breve de como era el funcionario que te atendió"
     errors:
       prohibited: "%{number_of_errors} evitó que la operación se realizara."
     options:
@@ -626,6 +635,9 @@ es:
       updated: "Queja o sugerencia actualizada correctamente"
       destroyed: "Queja o sugerencia eliminada correctamente"
       try_again: "Hubo problemas, intenta de nuevo."
+      empty: "No se encontraron solicitudes de servicio."
+      success: 'La solicitud fue creada satisfactoriamente'
+      error: "Hubo problemas, intenta de nuevo"
     service:
       created: 'Servicio creado correctamente.'
       updated: 'Servicio actualizado correctamente.'
@@ -662,10 +674,10 @@ es:
     support_program: "Programa de Apoyo"
   pages:
     index:
-      video_explication: Esta aplicación te permite evaluar los Trámites, Servicios y Programas de Apoyo del Estado de Puebla. Además, puedes levantar y dar seguimiento a las Quejas y Sugerencias sobre el Servicio que resolviendo para dar mejorar el servicio día con día.
-      participa: "¡Participa!"
-      queja_sugerencia: Realiza Queja o Sugerencia
-      evalua_tramite: Evalúa Trámite
+      video_explication: "Esta aplicación te permite evaluar los Trámites, Servicios y Programas de Apoyo del Estado de Puebla. Además, puedes levantar y dar seguimiento a las Quejas y Sugerencias sobre el Servicio que resolviendo para dar mejorar el servicio día con día."
+      join: "¡Participa!"
+      complaints_or_suggestions: "Realiza Queja o Sugerencia"
+      evaluate_a _submission: "Evalúa Trámite"
   service_survey_phase_options:
     start: "Al inicio"
     middle: "A la mitad"

@@ -1,7 +1,7 @@
 class Admins::ServiceSurveysController < ApplicationController
   layout 'admins'
-  helper_method :phase_options, :criterion_options, :answer_type_options, :services_for
   before_action :set_title
+  helper_method :phase_options, :criterion_options, :answer_type_options, :services_for
 
   def index
     @service_surveys = Admins.surveys_for(current_admin)
