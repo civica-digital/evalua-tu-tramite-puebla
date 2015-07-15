@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706212706) do
+ActiveRecord::Schema.define(version: 20150714233802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,18 @@ ActiveRecord::Schema.define(version: 20150706212706) do
     t.datetime "updated_at"
   end
 
+  create_table "service_reports", force: :cascade do |t|
+    t.decimal  "positive_overall_perception"
+    t.decimal  "negative_overall_perception"
+    t.integer  "respondents_count"
+    t.text     "overall_areas"
+    t.integer  "service_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "service_reports", ["service_id"], name: "index_service_reports_on_service_id", using: :btree
+
   create_table "service_requests", force: :cascade do |t|
     t.text     "description",                default: ""
     t.boolean  "anonymous",                  default: false
@@ -263,6 +275,7 @@ ActiveRecord::Schema.define(version: 20150706212706) do
   add_index "votes", ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type", using: :btree
 
   add_foreign_key "questions", "service_surveys"
+  add_foreign_key "service_reports", "services"
   add_foreign_key "service_surveys", "admins"
   add_foreign_key "survey_answers", "questions"
   add_foreign_key "survey_answers", "users"
