@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715180302) do
+ActiveRecord::Schema.define(version: 20150719042448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150715180302) do
     t.boolean  "is_public_servant"
     t.boolean  "disabled",               default: false
     t.boolean  "active",                 default: false
+    t.text     "surname"
+    t.text     "second_surname"
   end
 
   add_index "admins", ["authentication_token"], name: "index_admins_on_authentication_token", unique: true, using: :btree
@@ -129,11 +131,12 @@ ActiveRecord::Schema.define(version: 20150715180302) do
     t.string   "criterion"
     t.text     "text"
     t.string   "answer_type"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.text     "answers"
     t.integer  "service_survey_id"
     t.string   "answer_rating_range"
+    t.boolean  "optional",            default: false
   end
 
   add_index "questions", ["service_survey_id"], name: "index_questions_on_service_survey_id", using: :btree
@@ -162,6 +165,7 @@ ActiveRecord::Schema.define(version: 20150715180302) do
     t.boolean  "anonymous",                  default: false
     t.text     "service_fields",             default: "{}"
     t.text     "address",                    default: ""
+    t.string   "title",                      default: ""
     t.string   "media"
     t.integer  "service_id"
     t.integer  "requester_id",                               null: false
@@ -183,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150715180302) do
     t.float    "positive_overall_perception", default: 0.0, null: false
     t.float    "negative_overall_perception", default: 0.0, null: false
     t.integer  "people_who_participated",     default: 0,   null: false
+    t.integer  "service_id",                                null: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.text     "areas_results"
@@ -210,7 +215,11 @@ ActiveRecord::Schema.define(version: 20150715180302) do
     t.string   "administrative_unit"
     t.text     "cis"
     t.integer  "service_admin_id"
+    t.text     "homoclave"
+    t.text     "status",                default: "activo"
     t.integer  "service_surveys_count", default: 0
+    t.text     "homoclave"
+    t.text     "status",                default: "activo"
   end
 
   add_index "services", ["service_admin_id"], name: "index_services_on_service_admin_id", using: :btree
