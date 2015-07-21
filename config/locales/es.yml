@@ -374,6 +374,8 @@ es:
       show:
         service_survey_for: "Encuesta para evaluar los trámites: %{services}"
         edit_service_survey: "Editar encuesta"
+        optional: "Opcional"
+        required: "Requerida"
       edit:
         edit_service_survey: "Editar encuesta de servicio"
         add_question: "Agregar pregunta"
@@ -485,6 +487,7 @@ es:
       answered: "Evaluada"
   answers:
     new:
+      answers_already_sent: "Ya has evaluado la encuesta seleccionada."
       current_survey: "Estas evaluando %{title}"
       previous_question: "Pregunta anterior"
       next_question: "Siguiente pregunta"
@@ -492,6 +495,7 @@ es:
         one: "1 Pregunta restante"
         other: "%{count} Preguntas restantes"
       finish_survey: "Terminar evaluación"
+      need_to_answer_message: "Necesitas responder esta pregunta para continuar."
     create:
       answers_created_successfully: "Gracias por evaluar el servicio."
   evaluations:
@@ -523,6 +527,9 @@ es:
       by_services: "Por servicios"
       no_services: "El centro de atención no cuenta con servicios asignados."
       by_area: "Por áreas"
+      best_evaluated_service: "Servicio mejor evaluado"
+      worst_evaluated_service: "Servicio peor evaluado"
+      general: "Evaluación general"
   users:
     registrations:
       edit:
@@ -585,6 +592,7 @@ es:
       value: "Valor %"
       who: "¿Quién te atendió?*" 
       description_public_servant: "Describe al funcionario"
+      optional: "Pregunta opcional"
     placeholders:
       email: "correo@correo.com"
       password: "contraseña"
@@ -685,6 +693,7 @@ es:
     quality_service: "Calidad de servicio"
     accessibility: "Accesibilidad"
     infrastructure: "Infraestructura"
+    public_servant: "Servidor público"
   question_answer_type_options:
     binary: "Seleccionar de 2 posibles (Sí/No)"
     rating: "Seleccionar de 5 posibles en un rango"
@@ -745,6 +754,7 @@ es:
       return_to_index: "Ver todos los reportes"
       service_survey_phase: "Parte del proceso evaluada"
       created_time_ago: "Creado hace: %{time_ago}"
+      no_report: "Aún no hay reportes sobre este servicio"
     general_survey:
       title: "General"
       subtitle: "Satisfacción General del Servicio"

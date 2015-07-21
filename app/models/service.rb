@@ -6,6 +6,9 @@ class Service < ActiveRecord::Base
 
   has_many :service_fields
   has_many :messages
+  has_many :service_reports
+  has_many :answers, through: :service_surveys
+  has_many :service_surveys_reports, class: ServiceSurveyReport, through: :service_surveys, source: :reports
   belongs_to :service_admin, class: Admin, foreign_key: :service_admin_id
   has_and_belongs_to_many :admins
   has_and_belongs_to_many :service_surveys, join_table: :services_service_surveys
@@ -45,10 +48,6 @@ class Service < ActiveRecord::Base
     where("service_admin_id IS NULL OR service_admin_id = #{admin.id}")
   end
 
-  def service_surveys_count
-    service_surveys.count
-  end
-
   def answered_surveys
     service_surveys.select { |survey| survey.answers.any? }.count
   end
@@ -59,5 +58,13 @@ class Service < ActiveRecord::Base
       .select { |cis_hash| cis.include?(cis_hash[:id].to_s) }
       .map { |cis_hash| cis_hash[:name] }
       .join(", ")
+  end
+
+  def last_survey_reports
+    service_surveys.map(&:last_report).reject(&:blank?)
+  end
+
+  def last_report
+    service_reports.order(created_at: :asc).last
   end
 end
