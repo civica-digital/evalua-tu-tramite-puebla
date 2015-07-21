@@ -63,7 +63,7 @@ class Service < ActiveRecord::Base
   end
 
   def last_survey_reports
-    service_surveys.map(&:last_report).reject(&:blank?)
+    service_surveys.map(&:last_report).reject(&:blank?).uniq
   end
 
   def last_report
