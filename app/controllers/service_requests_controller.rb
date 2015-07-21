@@ -54,15 +54,15 @@ class ServiceRequestsController < ApplicationController
 
   private
   def service_public_servants
-     unless params[:pagetime].blank?
-        id_service = params[:pagetime][:service]
-        unless Service.where(id: id_service).last.nil?
-          @admins_services = Service.where(id: id_service).last.admins
-        end
-        @who = params[:pagetime][:who]
-        respond_to do |format|
-          format.js
-        end
+    unless params[:pagetime].blank?
+      service = Service.find(params[:pagetime][:service])
+      if service.present?
+        @admins_services = service.admins
+      end
+      @who = params[:pagetime][:who]
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -89,8 +89,8 @@ class ServiceRequestsController < ApplicationController
   end
 
   def create_array
-      @array_line=[]
-      @array_id=[]
-      @public_servant_admins  = Service.find(Service.last).admins
+    @array_line=[]
+    @array_id=[]
+    @public_servant_admins = Service.last.admins
   end
 end
