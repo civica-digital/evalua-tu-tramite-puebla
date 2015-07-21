@@ -1,5 +1,5 @@
 class ServiceSurvey < ActiveRecord::Base
-  has_and_belongs_to_many :services, join_table: :services_service_surveys
+  has_and_belongs_to_many :services, join_table: :services_service_surveys, counter_cache: true
   belongs_to :admin
   has_many :questions
   has_many :answers, class: SurveyAnswer, through: :questions, source: :survey_answers
@@ -48,6 +48,10 @@ class ServiceSurvey < ActiveRecord::Base
     else
       :close
     end
+  end
+
+  def last_report
+    reports.order(created_at: :asc).last
   end
 
   private
