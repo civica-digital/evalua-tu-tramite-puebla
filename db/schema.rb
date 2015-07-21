@@ -187,6 +187,7 @@ ActiveRecord::Schema.define(version: 20150719042448) do
     t.float    "positive_overall_perception", default: 0.0, null: false
     t.float    "negative_overall_perception", default: 0.0, null: false
     t.integer  "people_who_participated",     default: 0,   null: false
+    t.integer  "service_id",                                null: false
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
     t.text     "areas_results"
@@ -214,6 +215,8 @@ ActiveRecord::Schema.define(version: 20150719042448) do
     t.string   "administrative_unit"
     t.text     "cis"
     t.integer  "service_admin_id"
+    t.text     "homoclave"
+    t.text     "status",                default: "activo"
     t.integer  "service_surveys_count", default: 0
     t.text     "homoclave"
     t.text     "status",                default: "activo"

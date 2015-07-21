@@ -110,7 +110,7 @@ $kpi-border: #cccccc;
 .video{
   width: 80%;
   height: 20em;;
-  margin-left: 10%; 
+  margin-left: 10%;
 }
 /***************************************************
 **  KPIS
@@ -142,6 +142,14 @@ $kpi-border: #cccccc;
   padding-top: 10px;
 }
 /***************************************************
+**  Footer
+***************************************************/
+.footer-size {
+  max-width: 100%;
+  max-height: 200px;
+}
+
+/***************************************************
 **  Paddings AND Margins
 ***************************************************/
 .padding-top{
@@ -149,13 +157,13 @@ $kpi-border: #cccccc;
 }
 
 .margin_left{
-  margin-left: 10%; 
+  margin-left: 10%;
 }
 .margin_right{
-  margin-right: 10%; 
+  margin-right: 10%;
 }
 .margin-bottom{
-  margin-right: 10%; 
+  margin-right: 10%;
 }
 /***************************************************
 **  sizes
