@@ -112,13 +112,11 @@ $kpi-border: #cccccc;
   height: 20em;;
   margin-left: 10%; 
 }
-
 /***************************************************
 **  KPIS
 ***************************************************/
 .panel-gray {
      background-color: $grey-kpi, sans-serif;
-     /*padding: 15px 15px 15px 15px;*/
      margin: 15px 15px 25px;
      border: 1px solid $kpi-border;
 }
@@ -130,13 +128,11 @@ $kpi-border: #cccccc;
 .panel-gray a {
   color: $grey-kpi;
 }
-
 .number-kpi{
   color: $text-grey-kpi;
   font-size: 50px;
   font-family:  "Helvetica Neue Bold", sans-serif;
 }
-
 .text-kpi{
   color: $text-grey-kpi;
   font-size: 14px;
@@ -198,6 +194,10 @@ $kpi-border: #cccccc;
   color: #ffffff !important;
   font-size: 19px  !important;
   font-family:  "Helvetica Neue Regular", sans-serif;
+}
+.control-label-left {
+  text-align: left;
+  padding-top: 5px;
 }
 /***************************************************
 **  NAVBAR

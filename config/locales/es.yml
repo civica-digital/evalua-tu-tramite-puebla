@@ -238,7 +238,7 @@ es:
         dashboard: "Panel de administración"
         summary: "Resumen"
         requests: "Quejas o sugerencias"
-        reports_public_servants: "Mis Reportes"
+        reports_public_servants: "Mis quejas y sugerencias"
         config_requests: "Personalizar quejas o sugerencias"
         design: "Diseño"
         api: "API"
@@ -282,6 +282,12 @@ es:
         geographical_area: "Área geográfica de los reportes"
         geographical_area_description: "Modifica el zoom del mapa para definir la zona donde se pueden crear reportes"
         save_restriction: "Guardar restricción"
+        enable: 'Habilitar'
+        disable: 'Deshabilitar'
+        enabled: 'Habilitados'
+        disabled: 'Deshabilitados'
+        disable_service_confirm: "¿Estás seguro de desactivar el servicio?"
+        enable_service_confirm: "¿Estás seguro de activar el servicio?"
       new:
         header: 'Nuevo servicio'
       edit:
@@ -468,6 +474,7 @@ es:
     form:
       anonymise: "Ocultar identidad"
       prompt_service: 'Tipo de trámite'
+      prompt_center: 'Centro de atención'
       prompt_who: 'No recuerdo'
       address_placeholder: 'Ej. Av Revolucion 2342, 64830 Monterrey, Nuevo León, México'
       description_placeholder: 'Por favor proporcione detalles particulares sobre la queja o sugerencia y la ubicación para facilitar su atención.'
@@ -476,7 +483,8 @@ es:
       votes: "Votos"
       share_it: "Compártelo"
       image: "Imagen"
-
+      public_servant: "Servidor público"
+      unknown: "Desconocido"
   service_surveys:
     index:
       title: "Título"
@@ -502,7 +510,7 @@ es:
     index:
       service_evaluations: "Evaluaciones por servicio"
       name: "Nombre de servicio"
-      cis: "Centros de atención"
+      cis: "Nombre del Centro"
       service_surveys: "Encuestas"
       answered_surveys: "Encuestas contestadas"
       cis_name: "Centro de atención - %{name}"
@@ -576,6 +584,7 @@ es:
         service: "Trámites"
         who: "¿Quién lo atendió?"
         status: "Estatus"
+        description: "Descripción"
       status: "Estatus"
       message: "Mensaje"
       password: "Contraseña"
@@ -614,6 +623,9 @@ es:
       admin_select: "Selecciona Administrador de servicio"
       answer_type_select: "Selecciona un tipo de respuesta"
       criterion_select: "Selecciona criterio a evaluar en la pregunta"
+      service_type_dependency: "Selecciona la dependencia"
+      service_type_administrative: "Selecciona el centro de atención"
+      service_type_service_admin: "Selecciona al administrador"
   search_form:
     from_date: "De la fecha"
     to_date: "A la fecha"
@@ -653,6 +665,10 @@ es:
       created: 'Servicio creado correctamente.'
       updated: 'Servicio actualizado correctamente.'
       destroyed: 'Servicio ha sido eliminado.'
+      disabled: 'Trámite desactivado correctamente'
+      enabled: 'Trámite activado correctamente'
+      could_not_be_disabled: 'Trámite no pudo ser desactivado'
+      could_not_be_enabled: 'Trámite no pudo ser activado'
     status:
       created: 'Estatus creado correctamente.'
       updated: 'Estatus actualizado correctamente.'
@@ -688,7 +704,7 @@ es:
       video_explication: "En este sitio usted podrá evaluar la atención que se le brinda en los Trámites, Servicios y Programas de Apoyo del Gobierno del Estado de Puebla. Además, podrá levantar y dar seguimiento a las Quejas y Sugerencias que usted desee presentar. Lo anterior con el fin de mejorar la atención y el servicio."
       join: "¡Participa!"
       complaints_or_suggestions: "Realiza Queja o Sugerencia"
-      evaluate_a _submission: "Evalúa Trámite"
+      evaluate_a_submission: "Evalúa Trámite"
   service_survey_phase_options:
     start: "Al inicio"
     middle: "A la mitad"

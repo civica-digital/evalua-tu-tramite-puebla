@@ -4,7 +4,6 @@ FactoryGirl.define do
     question nil
     score "9.99"
     association :user, factory: :user
-    user nil
     factory :survey_answer_binary do
       score nil
       user nil
@@ -45,6 +44,5 @@ FactoryGirl.define do
     trait :yes_answer do
       score 10.0
     end
-
   end
 end
