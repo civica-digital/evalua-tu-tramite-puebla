@@ -28,7 +28,7 @@ class Admins::DashboardsController < Admins::AdminController
        unless params[:q].nil? || params[:q][:dependency].empty?
             @services = current_admin.managed_services.where(dependency: params[:q][:dependency] )
         else
-         @services = current_admin.managed_services
+         @services = current_admin.managed_services.active
         end
     end
      @title_page = I18n.t('.admins.dashboards.services.managed_services')
