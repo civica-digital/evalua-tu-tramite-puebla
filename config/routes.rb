@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   namespace :admins do
     resources :service_survey_reports, only: [:new, :create, :show, :index]
     resources :services do
+      collection do
+      get 'disable_service'
+      get 'enable_service'
+    end
       resources :messages, only: :index
     end
     resources :statuses, except: [:destroy]
@@ -45,6 +49,9 @@ Rails.application.routes.draw do
     end
 
     resources :service_surveys do
+      collection do
+          post 'invitation_user_mail'
+      end
       get :questions_text, on: :collection
       put :change_status, on: :member
 
