@@ -35,6 +35,7 @@ module Services
   end
 
     def self.generate_homoclave_for(service)
+    time = Time.new
     "#{type_of_service(service.service_type.to_s)}#{service.dependency.to_s[0]}#{service.administrative_unit.to_s[0] }#{time.strftime("%Y%m%d")}"
     end
 
@@ -48,7 +49,7 @@ module Services
     File.expand_path("#{object}.yml", File.dirname(__FILE__))
   end
   
-  def type_of_service(type)
+  def self.type_of_service(type)
     if type == "support_program"
       return 'PA'
     elsif type == "service"

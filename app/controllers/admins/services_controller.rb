@@ -19,7 +19,6 @@ class Admins::ServicesController < Admins::AdminController
   end
 
   def create
-    time = Time.new
     @service = Service.new(service_params)
     @service.homoclave = Services.generate_homoclave_for(@service)
     if @service.save
