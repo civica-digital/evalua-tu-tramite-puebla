@@ -18,18 +18,21 @@ class Admins::DashboardsController < Admins::AdminController
   end
 
   def services
-    if current_admin.is_super_admin? || current_admin.is_service_admin?
-      @services = Service.active
+    if current_admin.is_super_admin? 
         unless params[:q].nil? || params[:q][:dependency].empty?
             @services = Service.where(dependency: params[:q][:dependency] )
         else
-          @services = Service.all
+          @services = Service.active
         end
-      @search_service = Service.all
-    else
-      @services = current_admin.managed_services
+    else 
+       unless params[:q].nil? || params[:q][:dependency].empty?
+            @services = current_admin.managed_services.where(dependency: params[:q][:dependency] )
+        else
+         @services = current_admin.managed_services
+        end
     end
      @title_page = I18n.t('.admins.dashboards.services.managed_services')
+     @search_service = Service.active
   end
 
   private
