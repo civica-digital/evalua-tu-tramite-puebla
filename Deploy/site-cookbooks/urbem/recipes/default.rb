@@ -135,7 +135,7 @@ docker_image 'urbem-puebla' do
   source "/var/urbem"
   begin
      Docker::Image.get("urbem-puebla")
-     action :nothing
+     action :build
   rescue
      action :build
   end
@@ -162,7 +162,7 @@ docker_container 'urbem_migrate' do
   container_name "migrate_dbs"
   remove_automatically true
   env  list_creds
-  action :nothing
+  action :redeploy
   notifies :redeploy, "docker_container[urbem]", :immediately
 end
 
