@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :comments
 
-  resources :quejas_y_sujerencias, as: :service_requests, controller: :service_requests  do
+  resources :quejas_y_sugerencias, as: :service_requests, controller: :service_requests  do
     collection do
       get 'filter'
       get 'markers_for_gmap'
@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       put :update_password, on: :member
     end
     resources :credencial_de_autentificacion, as: :api_keys, only: [:create, :index], controller: :api_keys
-    resources :quejas_o_sujerencias , as: :service_requests, controller: :service_requests, except: [:show]  do
+    resources :quejas_o_sugerencias , as: :service_requests, controller: :service_requests, except: [:show]  do
       member do
         put 'update_status'
       end
