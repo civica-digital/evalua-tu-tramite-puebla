@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :comments
 
-  resources :quejas_y_sugerencias, as: :service_requests, controller: :service_requests  do
+  resources :quejas_y_sugerencias, as: :service_requests, controller: :service_requests  , :path_names => { :new => "nuevo"}do
     collection do
       get 'filter'
       get 'markers_for_gmap'
@@ -92,7 +92,7 @@ Rails.application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
   delete "signout", to: 'sessions#destroy'
 
-  resources :servicios, as: :services, only: [] do
+  resources :servicios, as: :services, only: [], controller: :services do
     collection do
       get 'load_service_fields'
     end
@@ -113,4 +113,10 @@ Rails.application.routes.draw do
       resources :requests, as: :service_requests, controller: :service_requests, only: [:show, :index]
     end
   end
+if Rails.env.production?  
+  match '/404', to: 'errors#file_not_found', via: :all
+  match '/422', to: 'errors#unprocessable', via: :all
+  match '/500', to: 'errors#internal_server_error', via: :all
+end
+  
 end

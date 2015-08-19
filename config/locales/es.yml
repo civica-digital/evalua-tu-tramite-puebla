@@ -242,6 +242,7 @@ es:
         config_requests: "Personalizar quejas o sugerencias"
         design: "Diseño"
         api: "API"
+        evaluations: "Evaluaciones"
         edit_profile: "Editar perfil"
         sign_out: "Cerrar sesión"
         service_admins: "Administradores de trámites"
@@ -477,6 +478,10 @@ es:
       complaints_or_suggestions: "Realiza Queja o Sugerencia"
       search: "Buscar"
       delete: "Eliminar"
+      service: "Todos los servicios"
+      status: "Todos los estatus"
+      start_date: "De la fecha"
+      end_date: "A la fecha"
     new:
       header: "Crear nueva queja o sugerencia"
       rules: "* obligatorios"
@@ -597,6 +602,7 @@ es:
     requests: "Quejas y sugerencias"
     evaluate_a_submission: "Evalúa trámite"
     evaluations: "Evaluaciones"
+    panel: "Panel"
 
   # Global words. Commonly used thru the platform
   search: 'Buscar'
@@ -833,3 +839,8 @@ es:
     general_survey:
       title: "General"
       subtitle: "Satisfacción General del Servicio"
+  error:
+    title_not_found: "Ruta no encontrada"
+    not_found: "Lo sentimos pero la Ruta ingresada no existe"
+    title_server_error: "Falla inesperada"
+    server_error: "Lo sentimos pero hubo una falla inseperada. Estamos trabajando en reparar esto."
