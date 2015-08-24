@@ -2,7 +2,7 @@
 
 <p>En seguimiento a su reporte con folio <b>#<%= @service_request.id %></b> cambiado de <%= @previous_status.name %> a <%= @service_request.status.name %></p>
 
-<p>Para ver los detalles sobre este cambio consulte el mensaje dejado por el Servidor Público, ingresando a la siguiente liga: <%= link_to nil, service_request_url(@service_request) %></p>
+<p>Para ver los detalles sobre este cambio consulte el mensaje dejado por el Servidor Público, ingresando a la siguiente liga: <%= link_to nil, service_request_path(@service_request) %></p>
 
 <p>Encuestas de Satisfacción
 Gobierno del Estado de Puebla.
