@@ -10,11 +10,9 @@ class ServiceRequestsController < ApplicationController
   end
 
   def new
-    if current_user
-      @service_request = current_user.service_requests.build
-    else
-      @service_request = ServiceRequest.new
-    end
+
+    @service_request = ServiceRequest.new
+
     service_public_servants
   end
 
