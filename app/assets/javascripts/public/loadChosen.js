@@ -13,7 +13,7 @@ var loadChosenlimit = function(){
        no_results_text: 'No hay resultados',
        placeholder_text: 'Selecciona una opción',
        width: '100%',
-       max_selected_options: 1
+       max_selected_options: 2
     });
 };
 
