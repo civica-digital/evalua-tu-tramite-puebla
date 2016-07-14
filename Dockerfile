@@ -4,7 +4,6 @@ MAINTAINER "Mikesaurio & Miguel Angel Gordian"
 ENV HOME /root
 
 CMD ["/sbin/my_init"]
-RUN ruby-switch --set ruby2.2
 
 USER app
 WORKDIR /home/app/urbem
