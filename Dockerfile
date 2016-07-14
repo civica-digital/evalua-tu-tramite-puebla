@@ -4,6 +4,7 @@ MAINTAINER "Mikesaurio & Miguel Angel Gordian"
 ENV HOME /root
 
 CMD ["/sbin/my_init"]
+RUN bash -lc 'rvm --default use ruby-2.3.1'
 
 USER app
 WORKDIR /home/app/urbem
