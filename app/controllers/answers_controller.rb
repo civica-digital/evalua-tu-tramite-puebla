@@ -16,9 +16,9 @@ class AnswersController < ApplicationController
     @service_survey = ServiceSurvey.find(params[:service_survey_id])
     unless survey_has_been_answered
       answers.each do |answer|
-        answer = SurveyAnswer.new(answer)
-        answer.save
+        SurveyAnswer.create(answer)
       end
+      ServiceSurveysReview.create_review_for(answers, @service_survey.id, AnsweredSurveyReview)
       UserMailer.confirm_service_survey_answer(@service_survey, current_user).deliver
     end
     redirect_to redirect_after_answers, notice: t('.answers_created_successfully')
@@ -26,12 +26,12 @@ class AnswersController < ApplicationController
 
   private
   def survey_has_been_answered
-    ServiceSurvey.find(params[:service_survey_id]).
-                                                  answers
-                                                  .where( user_id: current_user.id,
-                                                  cis_id: params[:cis_id],
-                                                  service_id: params[:service_id] ).any?
-
+    ServiceSurvey
+      .find(params[:service_survey_id])
+      .answers
+      .where(user_id: current_user.id,
+             cis_id: params[:cis_id],
+             service_id: params[:service_id]).any?
   end
 
   def answers_params
@@ -39,15 +39,8 @@ class AnswersController < ApplicationController
   end
 
   def redirect_after_answers
-    reports = ServiceSurveyReport.where(cis_id: params[:cis_id],
-                                        service_id: params[:service_id],
-                                        service_survey_id: @service_survey.id)
-                                  .order(:created_at)
-    if reports.any?
-      service_survey_report_path( id: reports.last.id)
-    else
-      root_path
-    end
+    @survey_review = ServiceSurveysReview.review_for_survey(@service_survey.id)
+
   end
 
   def authorize_user_to_answer
@@ -61,13 +54,11 @@ class AnswersController < ApplicationController
     end
   end
 
-      def save_path
-     session[:my_previous_url] = request.fullpath
+  def save_path
+    session[:my_previous_url] = request.fullpath
   end
 
   def delete_path
     session[:my_previous_url] = nil
   end
-
-
 end

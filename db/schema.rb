@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012200001) do
+ActiveRecord::Schema.define(version: 20161017213119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,17 @@ ActiveRecord::Schema.define(version: 20161012200001) do
     t.integer "admin_id",   null: false
     t.integer "service_id", null: false
   end
+
+  create_table "answered_survey_reviews", force: :cascade do |t|
+    t.decimal  "total_score"
+    t.integer  "service_survey_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "answered_survey_reviews", ["service_survey_id"], name: "index_answered_survey_reviews_on_service_survey_id", using: :btree
+  add_index "answered_survey_reviews", ["user_id"], name: "index_answered_survey_reviews_on_user_id", using: :btree
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "access_token"
@@ -309,6 +320,8 @@ ActiveRecord::Schema.define(version: 20161012200001) do
   add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], name: "fk_one_vote_per_user_per_entity", unique: true, using: :btree
   add_index "votes", ["voter_id", "voter_type"], name: "index_votes_on_voter_id_and_voter_type", using: :btree
 
+  add_foreign_key "answered_survey_reviews", "service_surveys"
+  add_foreign_key "answered_survey_reviews", "users"
   add_foreign_key "questions", "service_surveys"
   add_foreign_key "service_reports", "services"
   add_foreign_key "service_surveys", "admins"

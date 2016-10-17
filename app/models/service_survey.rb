@@ -5,6 +5,7 @@ class ServiceSurvey < ActiveRecord::Base
   has_many :answers, class: SurveyAnswer, through: :questions, source: :survey_answers
   has_many :reports, class: ServiceSurveyReport
   has_many :users, through: :answers, source: :user
+  has_many :answered_survey_reviews
 
 
   validates_presence_of :phase, :message => I18n.t('errors.messages.phase')
