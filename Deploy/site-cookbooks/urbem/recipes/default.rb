@@ -185,7 +185,7 @@ docker_container "urbem" do
   env  list_creds
   volume ['/www/sitios/storage:/home/app/urbem/storage:rw']
   detach true
-  port ['80:80', "443:443"]
+  port ['8080:80', "4433:443"]
   notifies :redeploy, "docker_container[sidekiq]", :immediately
   action :run
   cmd_timeout 600
@@ -203,6 +203,3 @@ docker_container "sidekiq" do
   cmd_timeout 600
 end
 
-execute "Change owner of the storage volume" do
-  command "docker exec urbem chown app:app /home/app/urbem/public/storage"
-end
