@@ -3,32 +3,38 @@
 # docker-compose run urbem rake db:migrate
 # docker-compose run urbem rake db:seed
 # docker-compose -d up
+volumes:
+  db_data: {}
+  gems: {}
+  storage: {}
 
 postgres:
   image: postgres:9.4
+  volumes:
+      - db_data:/var/lib/postgresql/data
+  ports:
+      - 5432:5432
 
 redis:
   image: redis:2
 
-urbem:
+urbem: &urbem
   build: .
+  command: rails s -p 3000 -b '0.0.0.0'
   ports:
-    - "8080:80"
+    - "8080:3000"
   links:
     - redis
     - postgres
   env_file: ./keys.env
+  volumes:
+      - .:/app
+      - gems:/usr/local/bundle
   environment:
-    PASSENGER_APP_ENV: production
+    - RAILS_ENV=production
 
 worker:
-  image: urbempuebla_urbem
-  links:
-    - redis
-    - postgres
-  env_file: ./keys.env
-  volumes_from:
-    - urbem
-  environment:
-    RAILS_ENV: production
+  <<: *urbem
   command: bundle exec sidekiq
+  depends_on:
+    - redis
