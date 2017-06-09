@@ -10,33 +10,34 @@ volumes:
   gems: {}
   storage: {}
 
-postgres:
-  image: postgres:9.4
-  volumes:
-      - db_data:/var/lib/postgresql/data
-  ports:
-      - 5432:5432
+services:
+  postgres:
+    image: postgres:9.4
+    volumes:
+        - db_data:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
 
-redis:
-  image: redis:2
+  redis:
+    image: redis:2
 
-urbem: &urbem
-  build: .
-  command: rails s -p 3000 -b '0.0.0.0'
-  ports:
-    - "8080:3000"
-  links:
-    - redis
-    - postgres
-  env_file: ./keys.env
-  volumes:
-      - .:/app
-      - gems:/usr/local/bundle
-  environment:
-    - RAILS_ENV=production
+  urbem: &urbem
+    build: .
+    command: rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - "8080:3000"
+    links:
+      - redis
+      - postgres
+    env_file: ./keys.env
+    volumes:
+        - .:/app
+        - gems:/usr/local/bundle
+    environment:
+      - RAILS_ENV=production
 
-worker:
-  <<: *urbem
-  command: bundle exec sidekiq
-  depends_on:
-    - redis
+  worker:
+    <<: *urbem
+    command: bundle exec sidekiq
+    depends_on:
+      - redis
