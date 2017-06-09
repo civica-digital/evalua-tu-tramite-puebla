@@ -1,3 +1,5 @@
+version: '2'
+
 # docker-compose build
 # docker-compose run urbem rake db:create
 # docker-compose run urbem rake db:migrate
