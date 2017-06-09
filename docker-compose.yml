@@ -39,5 +39,7 @@ services:
   worker:
     <<: *urbem
     command: bundle exec sidekiq
+    ports:
+      - "3001:3001"
     depends_on:
       - redis
