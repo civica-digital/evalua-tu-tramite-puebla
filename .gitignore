@@ -36,7 +36,7 @@ public/assets
 
 # Secrets + Environment
 /config/application.yml
-.env.production
+.env
 
 # Development
 .byebug_history

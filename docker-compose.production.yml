@@ -28,7 +28,7 @@ services:
       - 3000:3000
     restart: always
     env_file:
-      - ./.env.production
+      - ./.env
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
@@ -40,4 +40,4 @@ services:
       - redis
     restart: always
     env_file:
-      - ./.env.production
+      - ./.env

@@ -29,14 +29,15 @@ push: docker-compose.production.yml
 set-compose: docker-compose.production.yml
 	scp docker-compose.production.yml $(HOST):$(HOST_DIR)/docker-compose.yml
 
-set-env: .env.production
-	scp .env.production $(HOST):$(HOST_DIR)/.env.production
+set-env: .env
+	scp .env $(HOST):~/.env
+	scp .env $(HOST):$(HOST_DIR)/.env
 
 pull:
 	ssh $(HOST) $(REMOTE_COMPOSE) pull web
 
 up:
-	ssh $(HOST) $(REMOTE_COMPOSE) pull up
+	ssh $(HOST) $(REMOTE_COMPOSE) up -d
 
 setup-db:
 	ssh $(HOST) $(REMOTE_COMPOSE) run --rm web rake db:setup
