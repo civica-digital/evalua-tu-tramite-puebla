@@ -1,9 +1,0 @@
-{
-  "name": "swap",
-  "description": "Crea y activa la swap en el sistema objetivo",
-  "json_class": "Chef::Role",
-  "chef_type": "role",
-  "run_list": [
-    "recipe[urbem::swap]"
-  ]
-}
