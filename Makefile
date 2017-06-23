@@ -48,14 +48,13 @@ setup-db:
 SERVICE ?= web
 
 shell:
-	ssh -t $(HOST) $(REMOTE_COMPOSE) run --rm $(SERVICE) bash
+	ssh -t $(HOST) $(REMOTE_COMPOSE) exec --rm $(SERVICE) bash
 
 logs:
 	ssh -t $(HOST) $(REMOTE_COMPOSE) logs --follow $(SERVICE)
 
-
 ##################
-#    DATABASE    #
+#    DATABASE    #	PENDING
 ##################
 #DATE = $(shell date +%d-%m-%Y"_"%H_%M_%S)
 #backup-db: dump-db upload-dump-to-s3

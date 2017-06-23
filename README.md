@@ -16,18 +16,13 @@ nos ayuda a _automatizar_ el proceso de deployment.
 
 Para correr el target, es necesario tener un
 `docker-compose.production.yml` que describe los servicios que
-se usarán en producción, también es necesario un `.env.production`
+se usarán en producción, también es necesario un `.env`
 que contiene las variables de ambiente:
 
 ```bash
 HOST=user@hostname \
 HOST_DIR=/var/www/app \
 make deploy
-```
-
-En el `.bashrc` del _host_, asegúrate de tener:
-```bash
-export POSTGRES_PASSWORD=changeme
 ```
 
 Pasos _manuales_:
