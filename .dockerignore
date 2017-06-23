@@ -6,7 +6,7 @@
 Dockerfile*
 docker-compose*
 .dockerignore
-docker/
+!docker/database.yml
 
 # Logfiles and tempfiles.
 log/

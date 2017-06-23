@@ -27,21 +27,19 @@ push: docker-compose.production.yml
 	docker-compose -f docker-compose.production.yml push web
 
 set-compose: docker-compose.production.yml
-	scp docker-compose.production.yml $(HOST):~/docker-compose.yml
-	ssh $(HOST) docker-compose up -d
+	scp docker-compose.production.yml $(HOST):$(HOST_DIR)/docker-compose.yml
 
 set-env: .env.production
 	scp .env.production $(HOST):$(HOST_DIR)/.env.production
-	ssh $(HOST) docker-compose -f $(HOST_DIR)/docker-compose.yml up -d
 
 pull:
-	ssh $(HOST) docker-compose pull web
+	ssh $(HOST) $(REMOTE_COMPOSE) pull web
 
 up:
-	ssh $(HOST) docker-compose pull up
+	ssh $(HOST) $(REMOTE_COMPOSE) pull up
 
 setup-db:
-	ssh $(HOST) docker-compose run --rm web rake db:setup
+	ssh $(HOST) $(REMOTE_COMPOSE) run --rm web rake db:setup
 
 #############
 #    SSH    #
@@ -49,7 +47,7 @@ setup-db:
 SERVICE ?= web
 
 shell:
-	ssh -t $(HOST) $(REMOTE_COMPOSE) run --rm $(SERVICE) ash
+	ssh -t $(HOST) $(REMOTE_COMPOSE) run --rm $(SERVICE) bash
 
 logs:
 	ssh -t $(HOST) $(REMOTE_COMPOSE) logs --follow $(SERVICE)

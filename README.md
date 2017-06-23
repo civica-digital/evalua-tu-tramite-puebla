@@ -11,7 +11,8 @@ Para cambiar los puertos, recuerda que puedes modificar el
 `docker-compose.override.yml`
 
 ### Deploy
-En nuestro `Makefile` tenemos especificado un target `deploy`.
+En nuestro `Makefile` tenemos especificado un target `deploy`, que
+nos ayuda a _automatizar_ el proceso de deployment.
 
 Para correr el target, es necesario tener un
 `docker-compose.production.yml` que describe los servicios que
@@ -24,7 +25,12 @@ HOST_DIR=/var/www/app \
 make deploy
 ```
 
-Pasos:
+En el `.bashrc` del _host_, asegúrate de tener:
+```bash
+export POSTGRES_PASSWORD=changeme
+```
+
+Pasos _manuales_:
 - Construir la imagen de la aplicación
 - Subirla a un registro
 - Bajar la imagen en el _host_ donde se quiera correr la aplicación
@@ -34,15 +40,9 @@ Pasos:
 #### Dependencias
 - Bash
 - SSH
-- Docker >= 17.01.0-ce
-- docker-compose >= 1.11.2
-
-#### Si es una instalación nueva
-Asegurate de los prerrequisitos anteriores y utiliza el comando:
-
-`knife solo bootstrap usuario@dominio`
-
-Para más información de la implementación de estos scripts de deploy ver: [knife-solo](https://matschaffer.github.io/knife-solo/)
+- Make
+- [Docker >= 17.01.0-ce](https://docs.docker.com/engine/installation/linux/ubuntu/)
+- [docker-compose >= 1.11.2](https://docs.docker.com/compose/install/)
 
 ### ¿Dudas?
 

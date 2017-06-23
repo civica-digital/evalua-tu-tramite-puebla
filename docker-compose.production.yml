@@ -10,6 +10,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   redis:
     image: redis:2
@@ -27,6 +29,8 @@ services:
     restart: always
     env_file:
       - ./.env.production
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   sidekiq:
     image: civicadigitaldocker/urbem-puebla

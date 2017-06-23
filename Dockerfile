@@ -33,7 +33,7 @@ RUN bundle install --without test development --jobs 4 --retry 3
 ###########
 COPY . $APP_HOME
 RUN mkdir log tmp \
-    && mv docker/database.yml config/database.yml \
+    && mv $APP_HOME/docker/database.yml $APP_HOME/config/database.yml \
     && rake assets:precompile \
     && chown -R nobody:nogroup $APP_HOME
 
