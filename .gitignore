@@ -33,3 +33,4 @@ coverage
 .powder
 
 public/assets
+.ssh/
