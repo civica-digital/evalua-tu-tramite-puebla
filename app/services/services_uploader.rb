@@ -1,9 +1,13 @@
 module ServicesUploader
   def self.import_services_from(csv_file)
+    count = 0
     csv_rows = csv_content(csv_file.path)
     csv_rows.each do |row|
-      create_service(row.to_hash)
+      if create_service(row.to_hash)
+        count += 1
+      end
     end
+    csv_rows.count == count
   end
 
   private
@@ -23,6 +27,7 @@ module ServicesUploader
       Services.generate_homoclave_for(service)
       service.save
     end
+    service.valid?
   end
 
   def self.formatted_hash(hash_values)
@@ -46,8 +51,10 @@ module ServicesUploader
     values = Array.wrap(values.split(", "))
     values.map do |cis_name|
       cis = Services.service_cis_options.select { |c| c[:label].include?(cis_name) }.first
-      cis[:id].to_s
-    end
+      if cis.present?
+        cis[:id].to_s
+      end
+    end.reject(&:blank?)
   end
 
   def self.service_admin_id_for(email)
