@@ -33,3 +33,5 @@ coverage
 .powder
 
 public/assets
+.ssh/
+Deploy/data_bags/keys/secret.json
