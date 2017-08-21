@@ -36,6 +36,11 @@ module DynamicReports
       scope.select(:id).uniq.order(:id).map(&:id)
     end
 
+    def service_type_select
+      scope.select(:service_type).uniq.order(:service_type).
+        map{|a| ["#{I18n.t("service_type_options.#{a.service_type}")}", a.service_type]}
+    end
+
     filter(:id,
            :enum,
            :select => :id_select,
@@ -80,8 +85,7 @@ module DynamicReports
 
     filter(:service_type,
            :enum,
-           :select => scope.select(:service_type).uniq.order(:service_type).
-               map{|a| ["#{I18n.t("service_type_options.#{a.service_type}")}", a.service_type]},
+           :select => :service_type_select,
           :multiple => true,
           header: I18n.t('activerecord.attributes.dynamic_reports.service_type')) do |value, scope, grid|
 

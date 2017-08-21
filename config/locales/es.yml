@@ -790,6 +790,7 @@ es:
       error: "Hubo problemas, intenta de nuevo"
     service:
       services_bulk: "Se han creado los servicios"
+      services_bulk_error: "No se pudieron crear todos los servicios. Revisa los campos."
       created: 'Servicio creado correctamente.'
       updated: 'Servicio actualizado correctamente.'
       destroyed: 'Servicio ha sido eliminado.'

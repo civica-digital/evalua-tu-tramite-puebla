@@ -96,8 +96,11 @@ class Admins::ServicesController < Admins::AdminController
   end
 
   def import
-    ServicesUploader.import_services_from(params[:file])
-    redirect_to admins_services_path, notice: I18n.t('flash.service.services_bulk')
+    if ServicesUploader.import_services_from(params[:file])
+      redirect_to admins_services_path, notice: I18n.t('flash.service.services_bulk')
+    else
+      redirect_to admins_services_path, alert: I18n.t('flash.service.services_bulk_error')
+    end
   end
 
   private
