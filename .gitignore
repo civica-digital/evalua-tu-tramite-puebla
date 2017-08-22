@@ -16,7 +16,6 @@
 /tmp
 .DS_Store
 .sass-cache/
-/config/database.yml
 /config/env_variables.yml
 /public/uploads/*
 /public/storage/uploads/*
@@ -48,3 +47,7 @@ Session.vim
 
 # Docker
 docker-compose.override.yml
+
+# Deploy
+deploy/**/.terraform/*
+deploy/**/terraform*

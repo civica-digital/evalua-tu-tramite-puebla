@@ -1,94 +1,29 @@
-.PHONY: all deploy \
-	build push set-compose set-env pull setup-db \
-	shell logs \
-	backup-db
+.PHONY: deploy provide build update clean
 
-#################
-#    GENERAL    #
-#################
-all: docker-compose.override.yml .envrc tmp log config/database.yml
-	docker-compose run --rm web bundle install
-	docker-compose run --rm web rake db:create db:setup
-	docker-compose up -d
+HOST ?= urbem-puebla-staging
+APP_DIR ?= /var/www/urbem-puebla
+COMPOSE := docker-compose -f $(APP_DIR)/docker-compose.production.yml
 
-################
-#    DEPLOY    #
-################
-HOST ?= urbem-puebla
-HOST_DIR ?= /www/sitios/EvaluatuTramite
-REMOTE_COMPOSE = docker-compose -f $(HOST_DIR)/docker-compose.yml
+deploy: provide build update clean ## Run the deploy strategy (provide, build, update, clean)
 
-deploy: build push set-compose set-env pull up setup-db
+provide: docker-compose.production.yml .env ## Provide the HOST with whole repository
+	tar czf - . | ssh $(HOST) tar xzf - -C $(APP_DIR)
 
-build: docker-compose.production.yml
-	docker-compose -f docker-compose.production.yml build web
+build: ## Build the Docker image inisde the HOST
+	ssh $(HOST) $(COMPOSE) build web
 
-push: docker-compose.production.yml
-	docker-compose -f docker-compose.production.yml push web
+update: ## Update the containers and run migrations
+	ssh $(HOST) $(COMPOSE) down
+	ssh $(HOST) $(COMPOSE) up -d
+	ssh $(HOST) $(COMPOSE) run --rm web rake db:setup db:migrate
 
-set-compose: docker-compose.production.yml
-	scp docker-compose.production.yml $(HOST):$(HOST_DIR)/docker-compose.yml
+clean: ## Remove images that are not being used by any container
+	ssh $(HOST) "docker image prune -f"
 
-set-env: .env
-	scp .env $(HOST):~/.env
-	scp .env $(HOST):$(HOST_DIR)/.env
+.env:
+	@cp -p .env.example .env
 
-pull:
-	ssh $(HOST) $(REMOTE_COMPOSE) pull web
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-up:
-	ssh $(HOST) $(REMOTE_COMPOSE) up -d
-
-setup-db:
-	ssh $(HOST) $(REMOTE_COMPOSE) run --rm web rake db:setup
-
-#############
-#    SSH    #
-#############
-SERVICE ?= web
-
-shell:
-	ssh -t $(HOST) $(REMOTE_COMPOSE) exec --rm $(SERVICE) bash
-
-logs:
-	ssh -t $(HOST) $(REMOTE_COMPOSE) logs --follow $(SERVICE)
-
-##################
-#    DATABASE    #	PENDING
-##################
-#DATE = $(shell date +%d-%m-%Y"_"%H_%M_%S)
-#backup-db: dump-db upload-dump-to-s3
-#
-#dump-db:
-#	ssh -t $(HOST) $(REMOTE_COMPOSE) exec db \
-#		pg_dumpall -c -U postgres > dump_$(DATE).sql
-#	
-#upload-dump-to-s3:
-#	scp
-#	ssh -t $(HOST) cat dump_$(DATE).sql \
-#		| docker exec -i your-db-container psql -U postgres
-
-###############
-#    FILES    #
-###############
-docker-compose.override.yml:
-	cp docker-compose.override.yml.example docker-compose.override.yml
-ifeq ($(shell uname), Linux)
-	sed -i "s/{{user}}/$(shell id -u):$(shell id -g)/g" docker-compose.override.yml
-else
-	sed -i "/user/d" docker-compose.override.yml
-endif
-
-config/database.yml:
-	cp config/database.yml.example config/database.yml
-	sed -i '2 a\  host: db' config/database.yml
-	sed -i '3 a\  username: postgres' config/database.yml
-
-tmp:
-	mkdir tmp
-
-log:
-	mkdir log
-
-.envrc:
-	echo 'PATH_add docker/shims' > .envrc
+.DEFAULT_GOAL := help

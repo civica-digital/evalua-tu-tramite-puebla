@@ -1,8 +1,6 @@
 FROM ruby:2.2.5-slim
 
-###############
-#   Runtime   #
-###############
+# Runtime
 ENV APP_HOME=/usr/src/app \
     LANG=C.UTF-8 \
     PATH=/usr/src/app/bin:$PATH \
@@ -10,8 +8,6 @@ ENV APP_HOME=/usr/src/app \
     RAILS_ENV=development
 
 WORKDIR $APP_HOME
-
-EXPOSE 3000
 
 RUN set -ex \
     && apt-get update -qq \
@@ -21,9 +17,15 @@ RUN set -ex \
       nodejs \
       git
 
-# Configure Git so it can fetch the gems without an existing user
+# Build
+COPY Gemfile* $APP_HOME/
+
 RUN set -ex \
     && git config --system user.name Docker \
-    && git config --system user.email docker@localhost
+    && git config --system user.email docker@localhost \
+    && bundle install
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# App
+EXPOSE 3000
+
+CMD rm -f tmp/pids/server.pid && rails server -b 0.0.0.0

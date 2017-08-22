@@ -1,17 +1,12 @@
 FROM ruby:2.2.5-slim
 
-###############
-#   Runtime   #
-###############
+# Runtime
 ENV APP_HOME=/usr/src/app \
     LANG=C.UTF-8 \
-    PATH=/usr/src/app/bin:$PATH \
     TERM='xterm-256color' \
-    RAILS_ENV=development
+    RAILS_ENV=production
 
 WORKDIR $APP_HOME
-
-EXPOSE 3000
 
 RUN set -ex \
     && apt-get update -qq \
@@ -21,21 +16,22 @@ RUN set -ex \
       nodejs \
       git
 
-############
-#   Gems   #
-############
+# Build
 COPY Gemfile* $APP_HOME/
 
-RUN bundle install --without test development --jobs 4 --retry 3
+RUN set -ex \
+    && git config --system user.name Docker \
+    && git config --system user.email docker@localhost \
+    && bundle install --without test development --jobs 4 --retry 3
 
-###########
-#   App   #
-###########
 COPY . $APP_HOME
-RUN mkdir log tmp \
-    && mv $APP_HOME/docker/database.yml $APP_HOME/config/database.yml \
-    && rake assets:precompile \
-    && chown -R nobody:nogroup $APP_HOME
 
+RUN rake assets:precompile
+
+# App
+EXPOSE 3000
+
+RUN chown -R nobody:nogroup $APP_HOME
 USER nobody
-CMD ["rails", "server", "-b", "0.0.0.0"]
+
+CMD rm -f tmp/pids/server.pid && rails server -b 0.0.0.0

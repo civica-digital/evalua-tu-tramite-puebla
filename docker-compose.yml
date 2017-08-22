@@ -2,7 +2,6 @@ version: '2'
 
 volumes:
   db_data: {}
-  gems: {}
   redis: {}
 
 services:
@@ -25,19 +24,11 @@ services:
       - db
     volumes:
       - .:/usr/src/app
-      - gems:/usr/local/bundle
     environment:
-      - SPRING_PIDFILE=tmp/spring.pid
-      - SPRING_SOCKET=tmp/spring.sock
-      - SPRING_TMP_PATH=tmp
+      - DATABASE_HOST=db
 
   sidekiq:
     <<: *web
     command: bundle exec sidekiq
     depends_on:
       - redis
-
-  spring:
-    <<: *web
-    command: spring server
-    restart: on-failure

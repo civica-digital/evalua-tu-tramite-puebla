@@ -10,8 +10,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     restart: always
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    env_file:
+      - ./.env
 
   redis:
     image: redis:2
@@ -20,20 +20,18 @@ services:
     restart: always
 
   web:
-    image: civicadigitaldocker/urbem-puebla
+    image: civica-digital/urbem-puebla
     build: .
     depends_on:
       - db
-    ports:
-      - 3000:3000
     restart: always
     env_file:
       - ./.env
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5000:3000
 
   sidekiq:
-    image: civicadigitaldocker/urbem-puebla
+    image: civica-digital/urbem-puebla
     build: .
     command: bundle exec sidekiq
     depends_on:
