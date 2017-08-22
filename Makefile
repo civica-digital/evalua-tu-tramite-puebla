@@ -15,7 +15,7 @@ build: ## Build the Docker image inisde the HOST
 update: ## Update the containers and run migrations
 	ssh $(HOST) $(COMPOSE) down
 	ssh $(HOST) $(COMPOSE) up -d
-	ssh $(HOST) $(COMPOSE) run --rm web rake db:setup db:migrate
+	ssh $(HOST) $(COMPOSE) run --rm web rake db:create db:migrate
 
 clean: ## Remove images that are not being used by any container
 	ssh $(HOST) "docker image prune -f"
