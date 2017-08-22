@@ -3,35 +3,37 @@
 [Licencia](/LICENSE)
 
 ### Deploy
-Para utilizar el script de deploy con Chef se debe de correr:
-`knife solo cook usuario@dominio`
+En nuestro `Makefile` tenemos especificado un target `deploy`, que
+nos ayuda a _automatizar_ el proceso de deployment:
 
-Hay algunos prerrequisitos como:
-- Verificar que en la carpeta `Deploy/data_bags/keys/secret.json` se encuentre la información correspondiente al
-ambiente que se va a hacer deploy.
-- Verificar que `Deploy/nodes/dominio.json` donde el nombre de archivo `dominio` corresponde a la IP o al dominio
-del ambiente objetivo.
+```bash
+# Makefile targets
 
-- Si vas a agregar nuevas variables de entorno para el contenedor de Ruby, asegúrate de agregarlas en el `hash` de
-`Deploy/site-cookbooks/urbem/libraries/creds_helper.rb`, además agregarlas en `docker/urbem-env.conf` para que se importen al
-ambiente del contenedor.
+build          # Build the Docker image inisde the HOST
+clean          # Remove images that are not being used by any container
+deploy         # Run the deploy strategy (provide, build, update, clean)
+provide        # Provide the HOST with whole repository
+update         # Update the containers and run migrations
+```
 
+Para correr el target, es necesario tener un
+`docker-compose.production.yml` que describe los servicios que
+se usarán en producción, también es necesario un `.env`
+que contiene las variables de ambiente.
 
-#### Si es una instalación nueva
-Asegurate de los prerrequisitos anteriores y utiliza el comando:
+```bash
+HOST=user@hostname \
+APP_DIR=/var/www/app \
+make deploy
+```
 
-`knife solo bootstrap usuario@dominio`
-
-Para más información de la implementación de estos scripts de deploy ver: [knife-solo](https://matschaffer.github.io/knife-solo/)
-
-### Dependencias
-- Ruby
-- Rails
-- Bootstrap sass
-- Rspec
-- Redis
-
-Ver Gemfile para más información
+#### Dependencias
+- bash
+- ssh
+- tar
+- make
+- [Docker >= 17.01.0-ce](https://docs.docker.com/engine/installation/linux/ubuntu/)
+- [docker-compose >= 1.11.2](https://docs.docker.com/compose/install/)
 
 ### ¿Dudas?
 
@@ -52,19 +54,3 @@ El core team:
 
 Creado por [Codeando México](https://github.com/CodeandoMexico?tab=members), 2013 - 2015.
 Disponible bajo la licencia GNU Affero General Public License (AGPL) v3.0. Ver el documento [LICENSE](/LICENSE) para más información.
-
-
-### Testing
-
-Asegúrate de instalar geckodriver y exportar el PATH en tu entorno.
-
-
-### Migración de dependencias, unidades administrativas y cis a base de datos
-
-Si estás usando rake db:seed todo está bien, el archivo `seeds.rb` invoca a la tarea encargada de migrar
-
-Si deseas hacer la migración manual ejecuta:
-
-```
-$ bundle exec rake organisations:migrate
-```

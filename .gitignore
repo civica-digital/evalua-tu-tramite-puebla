@@ -16,7 +16,6 @@
 /tmp
 .DS_Store
 .sass-cache/
-/config/database.yml
 /config/env_variables.yml
 /public/uploads/*
 /public/storage/uploads/*
@@ -33,3 +32,22 @@ coverage
 .powder
 
 public/assets
+
+# Secrets + Environment
+/config/application.yml
+.env
+
+# Development
+.byebug_history
+.pry_history
+.pryrc
+Session.vim
+.envrc
+.ash_history
+
+# Docker
+docker-compose.override.yml
+
+# Deploy
+deploy/**/.terraform/*
+deploy/**/terraform*

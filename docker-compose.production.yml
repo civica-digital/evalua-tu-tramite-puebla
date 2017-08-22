@@ -9,26 +9,33 @@ services:
     image: postgres:9.4
     volumes:
       - db_data:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - ./.env
 
   redis:
     image: redis:2
     volumes:
       - redis:/var/lib/redis/data
+    restart: always
 
-  web: &web
-    image: civica-digital/urbem-puebla:development
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+  web:
+    image: civica-digital/urbem-puebla
+    build: .
     depends_on:
       - db
-    volumes:
-      - .:/usr/src/app
-    environment:
-      - DATABASE_HOST=db
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - 5000:3000
 
   sidekiq:
-    <<: *web
+    image: civica-digital/urbem-puebla
+    build: .
     command: bundle exec sidekiq
     depends_on:
       - redis
+    restart: always
+    env_file:
+      - ./.env
