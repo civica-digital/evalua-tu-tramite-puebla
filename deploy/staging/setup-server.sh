@@ -58,6 +58,7 @@ install_docker_compose() {
   sudo curl -L https://github.com/docker/compose/releases/download/1.14.0/docker-compose-`uname -s`-`uname -m` -o docker-compose
   sudo mv docker-compose /usr/local/bin/
   sudo chmod +x /usr/local/bin/docker-compose
+  echo "dc() { docker-compose -f /var/www/${project_name}/docker-compose.yml \$@ ; }" >> /home/deploy/.bashrc
 }
 
 main
