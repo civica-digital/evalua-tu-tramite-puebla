@@ -28,10 +28,10 @@ make deploy
 ```
 
 #### Dependencias
-- Bash
-- SSH
-- Tar
-- Make
+- bash
+- ssh
+- tar
+- make
 - [Docker >= 17.01.0-ce](https://docs.docker.com/engine/installation/linux/ubuntu/)
 - [docker-compose >= 1.11.2](https://docs.docker.com/compose/install/)
 
